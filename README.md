@@ -61,7 +61,7 @@ For detailed architecture, design principles, and execution models, see [ARCHITE
 - 🐳 **Docker Desktop** - For running InterSystems IRIS for Health
 - 🐍 **Python 3.11+** - For the CrewAI agent workflow
 - 🔑 **OpenAI API key** - For GPT-4o and text-embedding-3-small
-- 🔌 **VS Code REST Client extension** (recommended) - For testing FHIR endpoints using [samples/fhir.http](samples/fhir.http)
+- 🔌 **VS Code REST Client extension** (recommended) - For testing FHIR endpoints
 
 ## 🚀 Quick Start
 
@@ -128,7 +128,7 @@ Create a FHIR R4 repository in IRIS using the Management Portal:
    - **Advanced Configuration → Data Organization Strategy**: `clinicalai.fhirserver.InteractionsStrategy`
    - This strategy class will capture Observation POST events and trigger the Interoperability Production
 
-<img src="img/create-fhir-server.png" width="700"/>
+<img src="img/create-fhir-server.png" width="500"/>
 
 ### 5. 👤 Load Sample FHIR Data
 
@@ -145,7 +145,7 @@ curl -X POST http://localhost:52773/interop/fhir/r4/ \
 
 Or using IRIS Management Portal:
 
-<img src="img/load-fhir-resources.png" width="700"/>
+<img src="img/load-fhir-resources.png" width="500"/>
 
 This loads:
 - Patient: Jose Garcia (MRN-1000001)
@@ -220,7 +220,7 @@ The service will start on `http://localhost:8000`. You should see output indicat
 
 **Recommended: Use VS Code REST Client**
 
-Open [samples/fhir.http](samples/fhir.http) in VS Code and execute the "Create new creatinine observation" request (around line 78). This will POST an abnormal lab result that triggers the AI workflow.
+Open [samples/demo.http](samples/demo.http) in VS Code and execute the "POST new observation" request. This will POST an abnormal lab result that triggers the AI workflow.
 
 **Alternative: Using curl**
 
@@ -281,7 +281,7 @@ SELECT * FROM clinicalai_data.CaseEvidences
 
 **FHIR DiagnosticReport:**
 
-Use [samples/fhir.http](samples/fhir.http) or curl:
+Use [samples/demo.http](samples/demo.http) or curl:
 
 ```bash
 curl -u "superuser:SYS" \
@@ -335,7 +335,7 @@ Every recommendation includes:
 - Base URL: `http://localhost:52773/interop/fhir/r4`
 - Authentication: Basic Auth (`superuser:SYS`)
 
-**Use [samples/fhir.http](samples/fhir.http) for interactive requests**, or use curl:
+**Use [samples/demo.http](samples/demo.http) for demo requests** or [samples/fhir.http](samples/fhir.http) for comprehensive FHIR testing. Alternatively, use curl:
 
 ```bash
 # Get all patients

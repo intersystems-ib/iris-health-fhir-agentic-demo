@@ -13,7 +13,8 @@ Endpoint:
 
     Request body:
     {
-        "TriggerObservationRef": "Observation/12"
+        "TriggerObservationRef": "Observation/12",
+        "CaseId": "550e8400-e29b-41d4-a716-446655440000"  // optional
     }
 
     Response:
@@ -69,6 +70,11 @@ class EvaluationRequest(BaseModel):
         ...,
         description="FHIR Observation reference (e.g., 'Observation/12' or just '12')",
         example="Observation/12"
+    )
+    CaseId: str | None = Field(
+        None,
+        description="Optional case ID (UUID). If not provided, one will be generated.",
+        example="550e8400-e29b-41d4-a716-446655440000"
     )
 
 
@@ -175,7 +181,7 @@ async def evaluate(request: EvaluationRequest):
         # ====================================================================
         # Step 2: Setup CrewAI workflow
         # ====================================================================
-        case_id = str(uuid.uuid4())
+        case_id = request.CaseId or str(uuid.uuid4())
         patient_ref = observation_data["patient_ref"]
         observation_ref = observation_data["observation_ref"]
 

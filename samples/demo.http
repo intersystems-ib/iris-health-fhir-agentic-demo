@@ -1,0 +1,85 @@
+#################################################
+# IRIS Health FHIR Agentic Demo
+#################################################
+# Quick demo workflow:
+# 1. POST a new abnormal creatinine observation
+# 2. GET the AI-generated DiagnosticReport
+#################################################
+
+# ===== Configuration =====
+@fhirUrl = http://localhost:52773/interop/fhir/r4
+@username = superuser
+@password = SYS
+@patientId = 1
+@timestamp = {{$datetime iso8601}}
+
+#################################################
+# Step 1: Create abnormal creatinine observation
+#################################################
+
+### POST new observation
+# Creates an abnormal creatinine result (2.1 mg/dL - High)
+# This triggers the AI agent workflow
+# @name createObservation
+POST {{fhirUrl}}/Observation
+Content-Type: application/fhir+json
+Accept: application/fhir+json
+Authorization: Basic {{username}}:{{password}}
+Prefer: return=representation
+
+{
+  "resourceType": "Observation",
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "laboratory",
+          "display": "Laboratory"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "2160-0",
+        "display": "Creatinine [Mass/volume] in Serum or Plasma"
+      }
+    ],
+    "text": "Serum creatinine"
+  },
+  "subject": {
+    "reference": "Patient/{{patientId}}"
+  },
+  "effectiveDateTime": "{{timestamp}}",
+  "valueQuantity": {
+    "value": 2.1,
+    "unit": "mg/dL",
+    "system": "http://unitsofmeasure.org",
+    "code": "mg/dL"
+  },
+  "interpretation": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+          "code": "H"
+        }
+      ]
+    }
+  ]
+}
+
+#################################################
+# Step 2: Retrieve AI-generated DiagnosticReport
+#################################################
+
+### GET DiagnosticReport
+# Retrieves the AI-generated follow-up recommendations
+# Automatically uses the Observation ID from the previous request
+GET {{fhirUrl}}/DiagnosticReport?result=Observation/{{createObservation.response.body.id}}
+Accept: application/fhir+json
+Authorization: Basic {{username}}:{{password}}

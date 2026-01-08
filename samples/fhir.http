@@ -137,3 +137,11 @@ Authorization: Basic {{username}}:{{password}}
     }
   ]
 }
+
+
+
+### Retrieve generated DiagnosticReport for abnormal lab
+# Retrieves all Patient resources from the FHIR server
+GET {{fhirUrl}}/DiagnosticReport?result=Observation/14
+Accept: application/fhir+json
+Authorization: Basic {{username}}:{{password}}

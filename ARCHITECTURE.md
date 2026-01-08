@@ -66,6 +66,12 @@ The architecture is intentionally **minimal and explicit**.
   - Called by IRIS Business Operation via HTTP
   - Returns JSON response to IRIS
 
+- **Gradio Web UI** (Optional)
+  - Interactive web interface for demo purposes
+  - Allows users trigger workflow
+  - Displays real-time agent progress and results
+  - Calls the FastAPI service for AI execution
+
 ---
 
 ## 3. Execution Model
@@ -111,6 +117,16 @@ python clinical_ai/main.py --observation-id "Observation/12"
 ./run_api.sh
 ```
 → See sample requests in [samples/crewai.http](./samples/crewai.http)
+
+**Mode 3: Gradio Web UI**
+```bash
+# Start the API service first
+./run_api.sh
+
+# In a separate terminal, start the UI
+python run_ui.py
+```
+→ Open browser to `http://localhost:7860` for interactive demo interface
 
 ### CrewAI workflow execution (via FastAPI)
 
@@ -250,11 +266,16 @@ iris-health-fhir-agentic-demo/
 │   ├── schemas.py                # Pydantic output schemas
 │   ├── iris_client.py            # IRIS SQL/FHIR client
 │   ├── fhir_utils.py             # Shared FHIR utilities
-│   └── tools/                    # Agent tools
+│   ├── tools/                    # Agent tools
+│   │   ├── __init__.py
+│   │   ├── fetch_patient_context.py
+│   │   ├── search_clinical_guidelines.py
+│   │   └── analyze_lab_trend.py
+│   └── ui/                       # Gradio web interface (demo)
 │       ├── __init__.py
-│       ├── fetch_patient_context.py
-│       ├── search_clinical_guidelines.py
-│       └── analyze_lab_trend.py
+│       └── app.py                # Gradio UI application
+│
+├── run_ui.py                     # Gradio UI launcher script
 │
 └── samples/
 ```
@@ -281,6 +302,12 @@ iris-health-fhir-agentic-demo/
 4. **Tools are in a subdirectory**
    - Agent tools are grouped under `clinical_ai/tools/`
    - Each tool is a separate, focused module
+
+5. **UI is optional and demo-focused**
+   - `clinical_ai/ui/app.py` provides a Gradio web interface for interactive demos
+   - `run_ui.py` is a simple launcher script at the project root
+   - UI calls the FastAPI service - does not bypass the API layer
+   - Recommended for workshops and presentations
 
 ---
 
@@ -489,7 +516,7 @@ Returns: Same structured JSON as CLI mode.
 
 - Production-grade security
 - Autonomous clinical decisions
-- Full UI applications
+- Full production UI applications (Gradio UI is for demos only)
 - Real patient deployment
 - Complex DevOps setups
 

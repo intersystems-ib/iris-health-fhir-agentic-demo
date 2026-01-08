@@ -216,7 +216,24 @@ The service will start on `http://localhost:8000`. You should see output indicat
 
 **Note**: Keep this terminal running. Open a new terminal for the next steps.
 
-#### Trigger the Workflow via FHIR POST
+#### Option A: Using the Gradio UI (Recommended for Demo)
+
+Launch the interactive web interface:
+
+```bash
+python run_ui.py
+```
+
+Then open your browser to `http://localhost:7860`
+
+The UI provides an intuitive interface to:
+- Enter lab values and trigger the AI workflow
+- View real-time agent progress and reasoning
+- See recommendations and evidence citations
+
+**Note**: The API service must be running (see previous step) for the UI to work.
+
+#### Option B: Trigger the Workflow via FHIR POST
 
 **Recommended: Use VS Code REST Client**
 

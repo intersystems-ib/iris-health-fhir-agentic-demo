@@ -5,3 +5,4 @@ fastapi==0.128.0
 uvicorn[standard]==0.40.0
 python-dotenv==1.1.1
 pydantic==2.11.10
+gradio==5.12.0

@@ -1,0 +1,25 @@
+    // unexpire passwords to avoid login issues
+    new $namespace
+    set $namespace = "%SYS"
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+
+    // create INTEROP namespace
+    set $namespace = "HSLIB"
+    do ##class(HS.Util.Installer.Foundation).Install("INTEROP")
+
+    set $namespace = "INTEROP"
+
+    // load source code
+    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/src", "ck", ,1)
+
+    // start production
+    set production = "clinicalai.ClinicalEventOrchestration"
+    set ^Ens.Configuration("csp","LastProduction") = production
+    do ##class(Ens.Director).SetAutoStart(production)
+
+    set $namespace = "%SYS"
+    
+    // import ssl config
+    do ##class(Security.SSLConfigs).Import("/opt/irisapp/init/llm_ssl.xml")
+    
+    halt

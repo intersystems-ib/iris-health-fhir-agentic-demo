@@ -1,0 +1,67 @@
+{
+  "case_id": "636fffdf-2d9f-4393-ac08-01a058d43274",
+  "created_at": "2026-01-12T10:00:00Z",
+  "patient_ref": "Patient/1",
+  "trigger_observation_ref": "Observation/14",
+  "assessment": {
+    "risk_level": "medium-high",
+    "confidence": "high",
+    "reasoning_summary": "The patient with stage 3 CKD and hypertension shows a significant progressive increase in serum creatinine from 1.4 to 2.1 mg/dL over 90 days (50% increase), indicating worsening renal function. This trend and comorbid conditions warrant close monitoring, medication review for nephrotoxicity or dosing adjustment, and assessment for reversible contributors, per clinical guidelines."
+  },
+  "recommendations": [
+    {
+      "action_type": "repeat_test",
+      "action_text": "Repeat serum creatinine measurement to confirm trend and assess ongoing kidney function deterioration",
+      "timeframe": "7–14 days"
+    },
+    {
+      "action_type": "med_review",
+      "action_text": "Review current medications to identify and modify potentially nephrotoxic agents and adjust dosing according to renal function",
+      "timeframe": "as soon as possible"
+    },
+    {
+      "action_type": "monitor",
+      "action_text": "Closely monitor renal function and relevant clinical parameters to detect further changes and influence management",
+      "timeframe": "ongoing with periodic assessments"
+    },
+    {
+      "action_type": "lifestyle",
+      "action_text": "Assess hydration status and investigate recent illnesses or acute events that might contribute to renal function decline",
+      "timeframe": "within next clinical visit or sooner if clinically indicated"
+    }
+  ],
+  "evidence": [
+    {
+      "guideline_id": "ckd_creatinine_guideline_demo",
+      "chunk_id": "ckd_creatinine_guideline_demo:chunk-4",
+      "similarity": 0.5762,
+      "excerpt": "1. **Repeat serum creatinine testing** - Typically within **7–14 days** ... 2. **Review current medications** - Identify and reconsider potentially nephrotoxic drugs ... 4. **Monitor renal function closely** - Continue periodic laboratory monitoring to track trends ..."
+    },
+    {
+      "guideline_id": "ckd_creatinine_guideline_demo",
+      "chunk_id": "ckd_creatinine_guideline_demo:chunk-3",
+      "similarity": 0.5382,
+      "excerpt": "Risk factors for worsening renal function include exposure to: Non-Steroidal Anti-Inflammatory Drugs (NSAIDs) ... Presence of reversible factors (e.g., dehydration, drug exposure) ..."
+    },
+    {
+      "guideline_id": "ckd_creatinine_guideline_demo",
+      "chunk_id": "ckd_creatinine_guideline_demo:chunk-2",
+      "similarity": 0.5391,
+      "excerpt": "Definitions relevant to rising creatinine in CKD: - A **progressive increase** in serum creatinine over time ... - The relative increase exceeds **30% from baseline** ... These criteria indicate increased risk for progression of kidney disease and warrant further evaluation."
+    },
+    {
+      "guideline_id": "ckd_creatinine_guideline_demo",
+      "chunk_id": "ckd_creatinine_guideline_demo:chunk-1",
+      "similarity": 0.5637,
+      "excerpt": "This guideline is intended for clinical decision support and applies to adult patients with: ... Importance of serial monitoring and trend evaluation is emphasized."
+    }
+  ],
+  "metadata": {
+    "orchestration_framework": "CrewAI",
+    "crew_name": "renal_followup_crew",
+    "model_provider": "OpenAI",
+    "model_name": "gpt-4.1-mini",
+    "guideline_version": "v1",
+    "language": "en"
+  }
+}

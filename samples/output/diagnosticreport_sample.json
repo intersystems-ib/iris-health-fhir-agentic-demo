@@ -1,0 +1,77 @@
+{
+  "resourceType": "DiagnosticReport",
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+          "code": "LAB",
+          "display": "Laboratory"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://example.org/fhir/CodeSystem/ai-report-types",
+        "code": "ai-followup-evaluation",
+        "display": "AI Follow-up Evaluation"
+      }
+    ],
+    "text": "AI-based follow-up evaluation for abnormal laboratory result"
+  },
+  "subject": {
+    "reference": "Patient/1"
+  },
+  "effectiveDateTime": "2026-01-12T10:00:00Z",
+  "issued": "2026-01-12T10:00:05Z",
+  "result": [
+    {
+      "reference": "Observation/14"
+    }
+  ],
+  "conclusion": "AI follow-up evaluation indicates a medium-high risk of worsening renal function. A progressive increase in serum creatinine (1.4 to 2.1 mg/dL over 90 days, >30%) was identified in a patient with stage 3 chronic kidney disease and hypertension. Clinical guidelines recommend repeat testing, medication review for nephrotoxic agents, and close monitoring to assess progression and identify reversible factors.",
+  "conclusionCode": [
+    {
+      "coding": [
+        {
+          "system": "http://example.org/fhir/CodeSystem/ai-risk-level",
+          "code": "medium-high",
+          "display": "Medium-High Risk"
+        }
+      ]
+    }
+  ],
+  "presentedForm": [
+    {
+      "contentType": "text/plain",
+      "language": "en",
+      "data": "UkVDT01NRU5ERUQgQUNUSU9OUzoKLSBSZXBlYXQgc2VydW0gY3JlYXRpbmluZSB0ZXN0IHdpdGhpbiA3LTE0IGRheXMuCi0gUmV2aWV3IGN1cnJlbnQgbWVkaWNhdGlvbnMgZm9yIHBvdGVudGlhbGx5IG5lcGhyb3RveGljIGFnZW50cyBhbmQgcmVuYWwgZG9zaW5nIGFkanVzdG1lbnQuCi0gQ2xvc2VseSBtb25pdG9yIHJlbmFsIGZ1bmN0aW9uIGFuZCBjbGluaWNhbCBzdGF0dXMuCi0gQXNzZXNzIGh5ZHJhdGlvbiBzdGF0dXMgYW5kIHJlY2VudCBhY3V0ZSBldmVudHMu"
+    }
+  ],
+  "extension": [
+    {
+      "url": "http://example.org/fhir/StructureDefinition/ai-evaluation-metadata",
+      "extension": [
+        {
+          "url": "caseId",
+          "valueString": "636fffdf-2d9f-4393-ac08-01a058d43274"
+        },
+        {
+          "url": "confidence",
+          "valueString": "high"
+        },
+        {
+          "url": "model",
+          "valueString": "gpt-4.1-mini"
+        },
+        {
+          "url": "guidelineVersion",
+          "valueString": "v1"
+        }
+      ]
+    }
+  ]
+}

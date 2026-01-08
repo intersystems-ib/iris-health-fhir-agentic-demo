@@ -1,0 +1,37 @@
+### Lab Follow-up Recommendation Agent - CrewAI API Examples
+# Prerequisites:
+# 1. Start the API server: ./run_api.sh or uvicorn clinical_ai.api:app --reload
+# 2. Ensure IRIS FHIR server is running
+# 3. Configure .env file with IRIS and OpenAI credentials
+
+# Interactive Documentation:
+# - Swagger UI: http://localhost:8000/docs
+# - ReDoc: http://localhost:8000/redoc
+
+### Base URL
+@baseUrl = http://localhost:8000
+
+###############################################################################
+### Health Check Endpoints
+###############################################################################
+
+### 1. Basic Health Check
+GET {{baseUrl}}/
+
+### 2. Detailed Health Check (includes IRIS connection status)
+GET {{baseUrl}}/health
+
+
+###############################################################################
+### Evaluation Endpoint - Main CrewAI Workflow
+###############################################################################
+
+### 3. Evaluate Lab Observation (using ID only)
+POST {{baseUrl}}/evaluate
+Content-Type: application/json
+
+{
+  "TriggerObservationRef": "Observation/12"
+}
+
+

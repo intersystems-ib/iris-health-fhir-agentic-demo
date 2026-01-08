@@ -1,4 +1,4 @@
-# Lab Result Follow-up Recommendation Agent
+# IRIS Health FHIR Agentic Demo
 
 **Agentic AI for Healthcare** using **InterSystems IRIS for Health** + **CrewAI**
 
@@ -8,11 +8,11 @@ This is a reference demo showing how event-driven, explainable, auditable Agenti
 
 When an **abnormal laboratory result** is received (FHIR Observation), an automated multi-agent workflow:
 
-1. **Collects patient clinical context** (previous labs, medications, conditions)
-2. **Retrieves evidence** from clinical guidelines using RAG (Vector DB)
-3. **Performs structured clinical reasoning**
-4. **Generates follow-up recommendations**
-5. **Persists explainable reasoning** and evidence in IRIS
+1. 📊 **Collects patient clinical context** (previous labs, medications, conditions)
+2. 📚 **Retrieves evidence** from clinical guidelines using RAG (Vector DB)
+3. 🧠 **Performs structured clinical reasoning**
+4. 💡 **Generates follow-up recommendations**
+5. 💾 **Persists explainable reasoning** and evidence in IRIS
 
 > This is not a chatbot. This is event-driven, explainable, auditable Agentic AI for healthcare.
 
@@ -58,20 +58,20 @@ For detailed architecture, design principles, and execution models, see [ARCHITE
 
 ## Prerequisites
 
-- **Docker Desktop** - For running InterSystems IRIS for Health
-- **Python 3.11+** - For the CrewAI agent workflow
-- **OpenAI API key** - For GPT-4o and text-embedding-3-small
-- **VS Code REST Client extension** (recommended) - For testing FHIR endpoints using [samples/fhir.http](samples/fhir.http)
+- 🐳 **Docker Desktop** - For running InterSystems IRIS for Health
+- 🐍 **Python 3.11+** - For the CrewAI agent workflow
+- 🔑 **OpenAI API key** - For GPT-4o and text-embedding-3-small
+- 🔌 **VS Code REST Client extension** (recommended) - For testing FHIR endpoints using [samples/fhir.http](samples/fhir.http)
 
-## Quick Start
+## 🚀 Quick Start
 
-### 1. Setup Environment
+### 1. 📦 Setup Environment
 
 Clone the repository and create a Python virtual environment:
 
 ```bash
-git clone <repository-url>
-cd lab-followup-agent-demo
+git clone https://github.com/intersystems-ib/iris-health-fhir-agentic-demo
+cd iris-health-fhir-agentic-demo
 
 # Create and activate virtual environment
 python3 -m venv .venv
@@ -81,7 +81,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment Variables
+### 2. ⚙️ Configure Environment Variables
 
 Copy the example environment file and add your OpenAI API key:
 
@@ -104,7 +104,7 @@ IRIS_PASSWORD=SYS
 EMBEDDING_MODEL=my-openai-config
 ```
 
-### 3. Start IRIS Container
+### 3. 🐳 Start IRIS Container
 
 Build and run the IRIS container:
 
@@ -113,27 +113,24 @@ docker-compose build
 docker-compose up -d
 ```
 
-Wait for IRIS to be ready (check health status):
-
-```bash
-docker-compose ps
-```
-
-### 4. Initialize FHIR Server
+### 4. 🏥 Initialize FHIR Server
 
 Create a FHIR R4 repository in IRIS using the Management Portal:
 
 1. Open the IRIS Management Portal: http://localhost:52773/csp/sys/UtilHome.csp
 2. Login with credentials: `superuser` / `SYS`
-3. Navigate to: **Interoperability** → **Configure** → **FHIR Configuration**
+3. Navigate to: **Health** → **INTEROP** → **FHIR Server Management** → **Add New Server**
 4. Create a new FHIR Server endpoint:
-   - **Endpoint**: `/interop/fhir/r4`
-   - **Strategy Class**: `clinicalai.fhirserver.InteractionsStrategy`
+   - **Namespace**: `INTEROP`
+   - **Name**: `demo`
+   - **FHIR Version**: `R4``
+   - **URL**: `/interop/fhir/r4`
+   - **Advanced Configuration → Data Organization Strategy**: `clinicalai.fhirserver.InteractionsStrategy`
    - This strategy class will capture Observation POST events and trigger the Interoperability Production
 
-*(Screenshot will be added here)*
+<img src="img/create-fhir-server.png" width="700"/>
 
-### 5. Load Sample FHIR Data
+### 5. 👤 Load Sample FHIR Data
 
 Load the sample patient bundle (Jose Garcia) into the FHIR server.
 
@@ -146,7 +143,9 @@ curl -X POST http://localhost:52773/interop/fhir/r4/ \
   -d @iris/init/fhir/JoseGarcia.json | jq
 ```
 
-*(Screenshot will be added here)*
+Or using IRIS Management Portal:
+
+<img src="img/load-fhir-resources.png" width="700"/>
 
 This loads:
 - Patient: Jose Garcia (MRN-1000001)
@@ -154,11 +153,11 @@ This loads:
 - Medications: Ibuprofen (NSAID), Lisinopril
 - Lab Results: 3 historical creatinine observations
 
-### 6. Initialize SQL Schema and Vector Database
+### 6. 🗄️ Initialize SQL Schema and Vector Database
 
 #### Create SQL Tables
 
-Connect to IRIS and run the schema initialization:
+Navigate to [IRIS SQL Explorer](http://localhost:52773/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=INTEROP) (**System Explorer** → **SQL** → **INTEROP**) and run the schema initialization:
 
 ```sql
 LOAD SQL FROM FILE '/app/iris/init/schema.sql' DIALECT 'IRIS' DELIMITER ';'
@@ -182,7 +181,7 @@ VALUES (
   '%Embedding.OpenAI',
   1536,
   'OpenAI text-embedding-3-small for clinical guidelines'
-);
+)
 ```
 
 **Important**: Replace `your-openai-api-key-here` with your actual OpenAI API key.
@@ -203,7 +202,19 @@ This script:
 
 **Note**: Add your own clinical guideline documents (`.txt`, `.md`, `.markdown`) to `iris/vector/guidelines/` before running the script.
 
-### 7. Run the Demo
+### 7. ▶️ Run the Demo
+
+#### Start the FastAPI Service
+
+First, start the CrewAI FastAPI service that will be called by the IRIS Business Operation:
+
+```bash
+./run_api.sh
+```
+
+The service will start on `http://localhost:8000`. You should see output indicating the server is running.
+
+**Note**: Keep this terminal running. Open a new terminal for the next steps.
 
 #### Trigger the Workflow via FHIR POST
 
@@ -241,12 +252,31 @@ This will automatically:
 
 #### View Results
 
+**Interoperability Production Messages:**
+
+View message trace in IRIS Management Portal:
+- Navigate to: **Interoperability** → **View** → **Messages** or click here in [Message Viewer][http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen?$NAMESPACE=INTEROP&]
+
+For detailed project structure and architecture, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
 **SQL Query Results:**
 
 ```sql
-SELECT * FROM clinicalai_data.Cases ORDER BY CreatedAt DESC;
-SELECT * FROM clinicalai_data.CaseRecommendations;
-SELECT * FROM clinicalai_data.CaseEvidences;
+-- View all AI evaluation cases (latest first)
+-- Shows: Patient, Observation, Risk Level, Confidence, Reasoning Summary
+SELECT * FROM clinicalai_data.Cases ORDER BY CreatedAt DESC
+```
+
+```sql
+-- View all recommendations generated by the AI
+-- Shows: Action Type, Action Description, Timeframe
+SELECT * FROM clinicalai_data.CaseRecommendations
+```
+
+```sql
+-- View all clinical evidence used (explainability)
+-- Shows: Guideline citations, similarity scores, text excerpts
+SELECT * FROM clinicalai_data.CaseEvidences
 ```
 
 **FHIR DiagnosticReport:**
@@ -258,14 +288,7 @@ curl -u "superuser:SYS" \
   "http://localhost:52773/interop/fhir/r4/DiagnosticReport?subject=Patient/1" | jq
 ```
 
-**Interoperability Production Messages:**
-
-View message trace in IRIS Management Portal:
-- Navigate to: **Interoperability** → **View** → **Messages**
-
-For detailed project structure and architecture, see [ARCHITECTURE.md](ARCHITECTURE.md).
-
-## Technologies Used
+## 🛠️ Technologies Used
 
 - **InterSystems IRIS for Health** - Clinical data platform with FHIR support
 - **CrewAI 0.95.0** - Multi-agent orchestration framework
@@ -273,9 +296,9 @@ For detailed project structure and architecture, see [ARCHITECTURE.md](ARCHITECT
 - **Python 3.11+** - Runtime environment
 - **FHIR R4** - Healthcare data standard
 
-## Key Design Principles
+## 🎯 Key Design Principles
 
-### Explainability First
+### ✅ Explainability First
 
 Every recommendation includes:
 - Patient context used
@@ -284,30 +307,30 @@ Every recommendation includes:
 - Confidence level
 - Audit trail in IRIS
 
-### Healthcare-Realistic
+### 🏥 Healthcare-Realistic
 
 - Conservative language (decision support, not diagnosis)
 - Evidence-based recommendations
 - Proper disclaimers
 - Demo data only (no real patients)
 
-### Demo-Oriented
+### 🎓 Demo-Oriented
 
 - Simple architecture (no microservices, no message brokers)
 - Explainable live in 15 minutes
 - Clear audit trail via SQL queries
 - Not production-ready (reference implementation)
 
-## Accessing IRIS
+## 🔗 Accessing IRIS
 
-### IRIS Management Portal
+### 🖥️ IRIS Management Portal
 
 - URL: http://localhost:52773/csp/sys/UtilHome.csp
 - Username: `superuser`
 - Password: `SYS`
 - Namespace: `INTEROP`
 
-### FHIR REST API
+### 🌐 FHIR REST API
 
 - Base URL: `http://localhost:52773/interop/fhir/r4`
 - Authentication: Basic Auth (`superuser:SYS`)
@@ -322,7 +345,7 @@ curl -u "superuser:SYS" http://localhost:52773/interop/fhir/r4/Patient | jq
 curl -u "superuser:SYS" http://localhost:52773/interop/fhir/r4/Observation/1 | jq
 ```
 
-## Contributing
+## 🤝 Contributing
 
 This is a reference demo. Contributions that maintain simplicity and explainability are welcome.
 
@@ -332,10 +355,10 @@ Guidelines:
 - Follow the design constraints in [ARCHITECTURE.md](ARCHITECTURE.md)
 - Ensure changes can be explained in a live demo setting
 
-## License
+## 📄 License
 
 MIT License - See LICENSE file for details
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 Inspired by the [InterSystems customer-support-agent-demo](https://github.com/intersystems-ib/customer-support-agent-demo).

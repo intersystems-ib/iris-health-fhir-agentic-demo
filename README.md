@@ -18,41 +18,18 @@ When an **abnormal laboratory result** is received (FHIR Observation), an automa
 
 ## Architecture Overview
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ 1. FHIR Observation Posted → IRIS FHIR Server                  │
-│    Triggers: Business Service (FHIRObservationIn)              │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 2. Business Process (FollowUpAI)                               │
-│    Orchestrates 3-step workflow using BPL                       │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 3. Business Operation → FastAPI Service (Python/CrewAI)        │
-│    • Context Agent (patient data from FHIR)                     │
-│    • Guidelines Agent (RAG from Vector DB)                      │
-│    • Reasoning Agent (clinical recommendations)                 │
-│    Returns: Structured JSON                                     │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 4. Persistence Operation → SQL Tables                          │
-│    • Cases (what happened)                                      │
-│    • CaseRecommendations (what to do)                          │
-│    • CaseEvidences (why - explainability)                      │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 5. FHIR Publishing Operation → DiagnosticReport                │
-│    Results available via FHIR API                               │
-└─────────────────────────────────────────────────────────────────┘
-```
+<img src="img/architecture.png" width="600" />
+
+Key steps:
+
+* **FHIR Observation** → POSTed to IRIS FHIR server
+* **Interaction Strategy** → Detects clinical event
+* **Interoperability Production** → Orchestrates workflow
+* **Business Operation** → Calls Agentic AI REST service (FastAPI)
+* **Agents Execute** → Context retrieval, guideline search, reasoning
+* **Results Return** → Structured JSON back to IRIS
+* **Persistence** → SQL tables store cases, recommendations, evidence
+* **Publishing** → FHIR DiagnosticReport created and stored
 
 For detailed architecture, design principles, and execution models, see [ARCHITECTURE.md](ARCHITECTURE.md).
 

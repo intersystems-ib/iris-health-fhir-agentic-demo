@@ -6,6 +6,9 @@
    - Delete all data from the clinical AI demo tables
    - Maintains referential integrity by deleting in correct order
    - Does NOT drop the tables or schema, only removes data
+
+   Usage:
+   LOAD SQL FROM FILE '/app/iris/init/delete_data.sql' DIALECT 'IRIS' DELIMITER ';'
    ============================================================================ */
 
 -- ----------------------------------------------------------------------------

@@ -142,7 +142,7 @@ def post_observation(value: float, timestamp: str) -> Tuple[bool, str, Optional[
         return False, f"Error posting observation: {str(e)}", None
 
 
-def poll_diagnostic_report(observation_id: str, max_attempts: int = 30, delay: int = 2) -> Optional[Dict[str, Any]]:
+def poll_diagnostic_report(observation_id: str, max_attempts: int = 90, delay: int = 3) -> Optional[Dict[str, Any]]:
     """
     Poll for DiagnosticReport referencing the given observation.
 

@@ -126,7 +126,7 @@ python clinical_ai/main.py --observation-id "Observation/12"
 # In a separate terminal, start the UI
 python run_ui.py
 ```
-→ Open browser to `http://localhost:7860` for interactive demo interface
+→ Open browser to `http://localhost:7861` for interactive demo interface
 
 ### CrewAI workflow execution (via FastAPI)
 

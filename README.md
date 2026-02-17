@@ -94,7 +94,7 @@ docker-compose up -d
 
 Create a FHIR R4 repository in IRIS using the Management Portal:
 
-1. Open the IRIS Management Portal: http://localhost:52773/csp/sys/UtilHome.csp
+1. Open the IRIS Management Portal: http://localhost:52774/csp/sys/UtilHome.csp
 2. Login with credentials: `superuser` / `SYS`
 3. Navigate to: **Health** → **INTEROP** → **FHIR Server Management** → **Add New Server**
 4. Create a new FHIR Server endpoint:
@@ -114,7 +114,7 @@ Load the sample patient bundle (Jose Garcia) into the FHIR server.
 **Using curl**
 
 ```bash
-curl -X POST http://localhost:52773/interop/fhir/r4/ \
+curl -X POST http://localhost:52774/interop/fhir/r4/ \
   -u "superuser:SYS" \
   -H "Content-Type: application/fhir+json" \
   -d @iris/init/fhir/JoseGarcia.json | jq
@@ -134,7 +134,7 @@ This loads:
 
 #### Create SQL Tables
 
-Navigate to [IRIS SQL Explorer](http://localhost:52773/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=INTEROP) (**System Explorer** → **SQL** → **INTEROP**) and run the schema initialization:
+Navigate to [IRIS SQL Explorer](http://localhost:52774/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=INTEROP) (**System Explorer** → **SQL** → **INTEROP**) and run the schema initialization:
 
 ```sql
 LOAD SQL FROM FILE '/app/iris/init/schema.sql' DIALECT 'IRIS' DELIMITER ';'
@@ -201,7 +201,7 @@ Launch the interactive web interface:
 python run_ui.py
 ```
 
-Then open your browser to `http://localhost:7860`
+Then open your browser to `http://localhost:7861`
 
 The UI provides an intuitive interface to:
 - Enter lab values and trigger the AI workflow
@@ -219,7 +219,7 @@ Open [samples/demo.http](samples/demo.http) in VS Code and execute the "POST new
 **Alternative: Using curl**
 
 ```bash
-curl -X POST http://localhost:52773/interop/fhir/r4/Observation \
+curl -X POST http://localhost:52774/interop/fhir/r4/Observation \
   -u "superuser:SYS" \
   -H "Content-Type: application/fhir+json" \
   -d '{
@@ -249,7 +249,7 @@ This will automatically:
 **Interoperability Production Messages:**
 
 View message trace in IRIS Management Portal:
-- Navigate to: **Interoperability** → **View** → **Messages** or click here in [Message Viewer][http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen?$NAMESPACE=INTEROP&]
+- Navigate to: **Interoperability** → **View** → **Messages** or click here in [Message Viewer][http://localhost:52774/csp/healthshare/interop/EnsPortal.MessageViewer.zen?$NAMESPACE=INTEROP&]
 
 For detailed project structure and architecture, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -279,7 +279,7 @@ Use [samples/demo.http](samples/demo.http) or curl:
 
 ```bash
 curl -u "superuser:SYS" \
-  "http://localhost:52773/interop/fhir/r4/DiagnosticReport?subject=Patient/1" | jq
+  "http://localhost:52774/interop/fhir/r4/DiagnosticReport?subject=Patient/1" | jq
 ```
 
 ## 🛠️ Technologies Used
@@ -319,24 +319,24 @@ Every recommendation includes:
 
 ### 🖥️ IRIS Management Portal
 
-- URL: http://localhost:52773/csp/sys/UtilHome.csp
+- URL: http://localhost:52774/csp/sys/UtilHome.csp
 - Username: `superuser`
 - Password: `SYS`
 - Namespace: `INTEROP`
 
 ### 🌐 FHIR REST API
 
-- Base URL: `http://localhost:52773/interop/fhir/r4`
+- Base URL: `http://localhost:52774/interop/fhir/r4`
 - Authentication: Basic Auth (`superuser:SYS`)
 
 **Use [samples/demo.http](samples/demo.http) for demo requests** or [samples/fhir.http](samples/fhir.http) for comprehensive FHIR testing. Alternatively, use curl:
 
 ```bash
 # Get all patients
-curl -u "superuser:SYS" http://localhost:52773/interop/fhir/r4/Patient | jq
+curl -u "superuser:SYS" http://localhost:52774/interop/fhir/r4/Patient | jq
 
 # Get specific observation
-curl -u "superuser:SYS" http://localhost:52773/interop/fhir/r4/Observation/1 | jq
+curl -u "superuser:SYS" http://localhost:52774/interop/fhir/r4/Observation/1 | jq
 ```
 
 ## 🤝 Contributing

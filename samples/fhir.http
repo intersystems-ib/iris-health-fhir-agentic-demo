@@ -13,7 +13,7 @@
 
 # ===== Configuration Variables =====
 # FHIR server base URL
-@fhirUrl = http://localhost:52773/interop/fhir/r4
+@fhirUrl = http://localhost:52774/interop/fhir/r4
 
 # Authentication credentials
 @username = superuser

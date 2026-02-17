@@ -39,7 +39,7 @@ def fetch_observation_from_fhir(observation_id: str) -> dict:
 
     # Get FHIR server configuration from environment
     host = os.getenv("IRIS_HOST", "localhost")
-    fhir_port = os.getenv("IRIS_FHIR_PORT", "52773")
+    fhir_port = os.getenv("IRIS_FHIR_PORT", "52774")
     username = os.getenv("IRIS_USERNAME", "_SYSTEM")
     password = os.getenv("IRIS_PASSWORD", "SYS")
 

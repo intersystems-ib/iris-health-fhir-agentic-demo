@@ -18,13 +18,13 @@ if __name__ == "__main__":
     print("=" * 80)
     print("🏥 Clinical AI Demo - Lab Follow-up Recommendation UI")
     print("=" * 80)
-    print("Starting Gradio interface on http://localhost:7860")
+    print("Starting Gradio interface on http://localhost:7861")
     print("=" * 80)
     print()
 
     demo = create_ui()
     demo.launch(
         server_name="0.0.0.0",
-        server_port=7860,
+        server_port=7861,
         share=False
     )

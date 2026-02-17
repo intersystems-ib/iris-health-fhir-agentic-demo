@@ -25,15 +25,15 @@ from clinical_ai.iris_client import IRISClient
 # ============================================================================
 # Configuration
 # ============================================================================
-FHIR_BASE_URL = os.getenv("FHIR_BASE_URL", "http://localhost:52773/interop/fhir/r4")
+FHIR_BASE_URL = os.getenv("FHIR_BASE_URL", "http://localhost:52774/interop/fhir/r4")
 FHIR_USERNAME = os.getenv("IRIS_USERNAME", "superuser")
 FHIR_PASSWORD = os.getenv("IRIS_PASSWORD", "SYS")
 PATIENT_ID = "1"  # Fixed for demo
 
 # IRIS Portal URLs
-IRIS_PRODUCTION_URL = "http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=clinicalai.ClinicalEventOrchestration"
-IRIS_MESSAGE_VIEWER_URL = "http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen?$NAMESPACE=INTEROP&"
-IRIS_SQL_EXPLORER_URL = "http://localhost:52773/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=INTEROP"
+IRIS_PRODUCTION_URL = "http://localhost:52774/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=clinicalai.ClinicalEventOrchestration"
+IRIS_MESSAGE_VIEWER_URL = "http://localhost:52774/csp/healthshare/interop/EnsPortal.MessageViewer.zen?$NAMESPACE=INTEROP&"
+IRIS_SQL_EXPLORER_URL = "http://localhost:52774/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=INTEROP"
 
 
 # ============================================================================
@@ -742,6 +742,6 @@ if __name__ == "__main__":
     demo = create_ui()
     demo.launch(
         server_name="0.0.0.0",
-        server_port=7860,
+        server_port=7861,
         share=False
     )

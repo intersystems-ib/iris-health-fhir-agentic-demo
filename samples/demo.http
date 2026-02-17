@@ -7,7 +7,7 @@
 #################################################
 
 # ===== Configuration =====
-@fhirUrl = http://localhost:52773/interop/fhir/r4
+@fhirUrl = http://localhost:52774/interop/fhir/r4
 @username = superuser
 @password = SYS
 @patientId = 1

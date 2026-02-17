@@ -35,7 +35,7 @@ class AnalyzeLabTrendTool(BaseTool):
         """Initialize FHIR connection settings."""
         super().__init__(**kwargs)
         host = os.getenv("IRIS_HOST", "localhost")
-        fhir_port = os.getenv("IRIS_FHIR_PORT", "52773")
+        fhir_port = os.getenv("IRIS_FHIR_PORT", "52774")
         username = os.getenv("IRIS_USERNAME", "_SYSTEM")
         password = os.getenv("IRIS_PASSWORD", "SYS")
 

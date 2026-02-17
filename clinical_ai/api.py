@@ -139,7 +139,7 @@ async def root():
 async def health():
     """Detailed health check endpoint."""
     iris_host = os.getenv("IRIS_HOST", "localhost")
-    iris_port = os.getenv("IRIS_FHIR_PORT", "52773")
+    iris_port = os.getenv("IRIS_FHIR_PORT", "52774")
 
     return {
         "status": "healthy",

@@ -17,7 +17,7 @@ import iris
 
 # Get connection settings from environment
 _HOST: str = os.getenv("IRIS_HOST", "localhost")
-_PORT: int = int(os.getenv("IRIS_PORT", "1972"))
+_PORT: int = int(os.getenv("IRIS_PORT", "1973"))
 _NAMESPACE: str = os.getenv("IRIS_NAMESPACE", "INTEROP")
 _USERNAME: str = os.getenv("IRIS_USERNAME", "_SYSTEM")
 _PASSWORD: str = os.getenv("IRIS_PASSWORD", "SYS")
